@@ -12,7 +12,7 @@ Mein Ziele sind so.
 
 # Life Cycle
 
-1. Requirement engineering 
+1. Requirement engineering
 2. Design
 3. Implementierung
 4. Testen
