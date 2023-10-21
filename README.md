@@ -1,19 +1,15 @@
-# Wieder
-Ein Untertitle Tool mit Web Speech API und Übersetzer.
+# Elysia with Bun runtime
 
-Wenn ich als ausländische Studenten Vorlesungen höre, denke ich immer , "es wäre besser, wenn ich alle Vorlesungen aufnehmen und als Texte speichen können."
+## Getting Started
+To get started with this template, simply paste this command into your terminal:
+```bash
+bun create elysia ./elysia-example
+```
 
-Ja, Deswegen programmiere ich dieses Programm.
+## Development
+To start the development server run:
+```bash
+bun run dev
+```
 
-Mein Ziele sind so.
-
-1. Anwendung von Software Technik.
-2. Jeden Tag Kommentieren mit git.
-
-# Life Cycle
-
-1. Requirement engineering
-2. Design
-3. Implementierung
-4. Testen
-5. Wartung
+Open http://localhost:3000/ with your browser to see the result.
