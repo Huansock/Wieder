@@ -1,18 +1,19 @@
 <script>
 	import { onMount, tick } from 'svelte';
+	import { saveAs } from 'file-saver';
 	let recognition;
 	let transcriptSource = 'Source for Transcripts';
 	$: transcripts = [];
-	let interim = 'interim';
+	$: reversedTranscripts = [];
 	let targetLang;
 	let errorMessage;
+	let Time4FileName = new Date().toLocaleTimeString();
 
 	onMount(async () => {
 		let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 		recognition = new SpeechRecognition();
 		recognition.onstart = (event) => {
 			console.log('started');
-			console.log('hi');
 		};
 		recognition.onend = (event) => {
 			recognition.start();
@@ -31,8 +32,11 @@
 					isfinal = true;
 					//currentTime setting
 					const currentTime = new Date().toLocaleTimeString();
-					transcripts = [...transcripts, `[${currentTime}]   ${trans}`];
+					transcripts.push(`[${currentTime}]   ${trans} \n`);
+					transcripts = transcripts;
+					reversedTranscripts = transcripts.toReversed();
 					console.log(transcripts);
+					console.log(reversedTranscripts);
 				}
 			}
 		};
@@ -47,12 +51,19 @@
 		//recognition attributes
 		recognition.continuous = false;
 		recognition.interimResults = true;
-		recognition.maxAlternatives = 1;
+		recognition.maxAlternatives = 100;
 		console.log('attribute set');
 	}
 
 	function startButton() {
 		recognition.start();
+	}
+	function CreateTextFile() {
+		let blob = new Blob(transcripts, {
+			type: 'text/plain;charset=utf-8',
+			endings: 'native'
+		});
+		saveAs(blob, `${Time4FileName}.txt`);
 	}
 </script>
 
@@ -67,10 +78,11 @@
 	<button on:click={setAttribute}>set attribute</button>
 </p>
 <button on:click={startButton}>start button</button>
+<button on:click={CreateTextFile}>create Txt file</button>
 <p>{transcriptSource}</p>
 
 <div class="previous-scripts">
-	{#each transcripts.reverse() as transcript}
+	{#each reversedTranscripts as transcript}
 		<p>{transcript}</p>
 	{/each}
 </div>
