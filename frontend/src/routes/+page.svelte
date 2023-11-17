@@ -30,13 +30,12 @@
 					console.log('isfinal');
 					transcriptSource = trans;
 					isfinal = true;
+					const confidence = (event.results[0][0].confidence * 100).toFixed();
 					//currentTime setting
 					const currentTime = new Date().toLocaleTimeString();
-					transcripts.push(`[${currentTime}]   ${trans} \n`);
+					transcripts.push(`[${currentTime}][confidence:${confidence}%]   ${trans}  \n`);
 					transcripts = transcripts;
 					reversedTranscripts = transcripts.toReversed();
-					console.log(transcripts);
-					console.log(reversedTranscripts);
 				}
 			}
 		};
@@ -51,7 +50,7 @@
 		//recognition attributes
 		recognition.continuous = false;
 		recognition.interimResults = true;
-		recognition.maxAlternatives = 100;
+		recognition.maxAlternatives = 1000;
 		console.log('attribute set');
 	}
 
